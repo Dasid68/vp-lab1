@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
-@WebServlet(urlPatterns = "/registration")
+@WebServlet(urlPatterns = "/servlet/registration")
 public class RegistrationServlet extends HttpServlet {
 
     private final RegistrationService registrationService;
@@ -52,7 +52,7 @@ public class RegistrationServlet extends HttpServlet {
 
         } catch (IllegalArgumentException ex){
             var message = URLEncoder.encode(ex.getMessage(), StandardCharsets.UTF_8);
-            resp.sendRedirect("/?errorMessage=" + message);
+            resp.sendRedirect("/servlet/workshops?errorMessage=" + message);
         }
 
 

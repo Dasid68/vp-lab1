@@ -14,7 +14,7 @@ import org.thymeleaf.web.servlet.JakartaServletWebApplication;
 
 import java.io.IOException;
 
-@WebServlet(urlPatterns = "")
+@WebServlet(urlPatterns = "/servlet/workshops")
 public class WorkshopListServlet extends HttpServlet {
     private final WorkshopService workShopService;
     private final SpringTemplateEngine springTemplateEngine;

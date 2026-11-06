@@ -40,7 +40,7 @@
         <p class="error" th:text="${errorMessage}"></p>
     </div>
 
-    <form action="/" method="GET">
+    <form action="/workshops" method="GET">
         <h2>Search workshops:</h2>
         <label>Title or category contains:</label>
         <input type="text" name="text">
@@ -48,6 +48,28 @@
         <input type="number" name="maxPrice" min="0" step="0.01">
         <input type="submit" value="Search">
     </form>
+    </br>
+    <a href="/workshops/workshop-form">Add new workshop</a>
+
+    <table>
+        <thead>
+            <th>Workshop name</th>
+            <th>Actions</th>
+        </thead>
+        <tbody>
+            <tr th:each="workshop : ${workShops}">
+                <td th:text="${workshop.getTitle()}"></td>
+                <td>
+                    <form method="get" th:action="@{/workshops/workshop-form/{id}(id=${workshop.getId()})}">
+                        <button th:href="|/workshops/workshop-form/${workshop.getId()}|">edit</button>
+                    </form>
+                    <form method="post" th:action="@{/workshops/delete/{id}(id=${workshop.getId()})}">
+                       <button type="submit">delete</button>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 
     <form action="/registration" method="POST">
         <h2>Choose a workshop:</h2>
@@ -60,10 +82,13 @@
         <ul>
             <li th:each="workshop : ${workShops}" >
                 <input type="radio" name="workshopTitle" th:value="${workshop.getTitle()}"  th:disabled="${workshop.getCapacity() == 0}">
-
-                <label th:text="|Title: ${workshop.getTitle()}, Category: ${workshop.getCategory()}, Price: ${workshop.getPrice()} MKD, Free seats: ${workshop.getCapacity()}|"></label>
+                <label th:text="|Title: ${workshop.getTitle()}, Category: ${workshop.getCategory()}, Price: ${workshop.getPrice()} MKD, Free seats: ${workshop.getCapacity()}, Instructor: ${workshop.getInstructor().getName()} ${workshop.getInstructor().getSurname()}|"></label>
+                </br>
             </li>
         </ul>
+
+
+
 
         <h2>Enter your information:</h2>
         <label>Your Name:</label>
